@@ -1,4 +1,4 @@
-name: ci
+name: publish
 
 concurrency:
   group: ${{ github.workflow }}
@@ -12,7 +12,7 @@ on:
   workflow_call:
 
 jobs:
-  docker:
+  shell:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
