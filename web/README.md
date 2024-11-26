@@ -17,12 +17,13 @@ A Nginx server exposing different kind of endpoints that can be used for tests.
 * `/sleep/1`
 * `/sleep/5`
 * `/sleep/max`
-* `/404/my_header`
-* `/410/my_header`
-* `/500/my_header`
-* `/503/my_header`
-* `/404/my_response`
-* `/410/my_response`
+* `/404`
+* `/410`
+* `/500`
+* `/502`
+* `/503`
+* `/504`
+* `/509`
 * `/reqdump`
 
 ## build & publish
