@@ -27,11 +27,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Convert slash in branch name
-        run: |
-          BRANCH_NAME=$(echo ${{ github.head_ref }} | tr / -)
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
