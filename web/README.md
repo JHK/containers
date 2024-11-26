@@ -8,7 +8,7 @@ A Nginx server exposing different kind of endpoints that can be used for tests.
     MESSAGE=hello world!
     SLEEP_MAX=59
     KEEP_ALIVE=0
-    PATH_PREFIX=/
+    PATH_PREFIX=
 
 ## endpoints
 
