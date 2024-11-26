@@ -1,0 +1,7 @@
+.PHONY: all $(MAKECMDGOALS)
+
+build:
+	docker build -t $(DOCKER_REPO):shell .
+
+publish:
+	docker push $(DOCKER_REPO):shell
