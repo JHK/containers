@@ -24,10 +24,10 @@ case "$choice" in
 esac
 
 echo
-cat pod.yaml | sed "s/__NAME__/$NAME/g" | sed "s/__NAMESPACE__/$NAMESPACE/g" | kubectl apply -f -
+cat pod.yaml | sed "s/__NAME__/$NAME/g" | sed "s/__NAMESPACE__/$NAMESPACE/g" | kubectl apply --context $CONTEXT -f -
 
-./scripts/wait_for_container.sh "$NAMESPACE" "$NAME"
+./scripts/wait_for_container.sh "$CONTEXT" "$NAMESPACE" "$NAME"
 
-kubectl exec -it --namespace "$NAMESPACE" "$NAME" -- "$COMMAND" || true
+kubectl exec -it --context $CONTEXT --namespace "$NAMESPACE" "$NAME" -- "$COMMAND" || true
 
-kubectl delete pod --namespace "$NAMESPACE" "$NAME"
+kubectl delete pod --context $CONTEXT --namespace "$NAMESPACE" "$NAME"
