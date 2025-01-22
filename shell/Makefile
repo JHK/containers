@@ -6,6 +6,6 @@ build:
 publish:
 	docker push $(DOCKER_REPO):shell
 
-# alias kubeshell="make -C ~/Projects/containers/shell pod"
+# alias kubeshell="~/Projects/containers/shell/scripts/run_container.sh"
 pod:
 	./scripts/run_container.sh
