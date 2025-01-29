@@ -31,7 +31,7 @@ RUN curl -sLO https://github.com/dandavison/delta/releases/download/0.18.2/git-d
 
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:$PATH
-RUN go install github.com/rakyll/hey@latest
+RUN go install github.com/rakyll/hey@master
 
 ADD rootfs /
 WORKDIR /root
