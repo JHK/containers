@@ -9,7 +9,10 @@ RUN apt update && apt upgrade -qqy && apt -qqy --fix-missing install \
 \
   # system tools
   # https://linux.die.net/man/1/ts
-  git git-delta dumb-init htop nano command-not-found dnsutils ripgrep sudo ssh-client net-tools moreutils screen \
+  git git-delta dumb-init htop nano command-not-found ripgrep sudo ssh-client moreutils screen \
+\
+  # networking
+  dnsutils iproute2 tcpdump net-tools inetutils-traceroute inetutils-telnet inetutils-ping nmap \
 \
   # web stuff
   # https://httpie.org/
