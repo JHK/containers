@@ -25,6 +25,13 @@ case "$choice" in
   n|N ) exit 1;;
 esac
 
+# exec if already running
+if kubectl get pod --context "$CONTEXT" --namespace "$NAMESPACE" "$NAME" >/dev/null 2>&1; then
+  >&2 echo "Container already running, exec into it"
+  kubectl exec -it --context "$CONTEXT" --namespace "$NAMESPACE" "$NAME" -- "$COMMAND"
+  exit 0
+fi
+
 >&2 echo
 cat ../pod.yaml | sed "s/__NAME__/$NAME/g" | sed "s/__NAMESPACE__/$NAMESPACE/g" | >&2 kubectl apply --context $CONTEXT -f -
 
