@@ -23,9 +23,10 @@ RUN apt update && apt upgrade -qqy && apt -qqy --fix-missing install \
   # https://fishshell.com/
   fish fzf locales
 
-RUN wget https://github.com/fullstorydev/grpcurl/releases/download/v1.9.3/grpcurl_1.9.3_linux_amd64.deb && \
-    dpkg -i grpcurl_1.9.3_linux_amd64.deb && \
-    rm grpcurl_1.9.3_linux_amd64.deb
+RUN ARCH=$(dpkg --print-architecture) && \
+    wget https://github.com/fullstorydev/grpcurl/releases/download/v1.9.3/grpcurl_1.9.3_linux_${ARCH}.deb && \
+    dpkg -i grpcurl_1.9.3_linux_${ARCH}.deb && \
+    rm grpcurl_1.9.3_linux_${ARCH}.deb
 
 RUN locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 && \
