@@ -33,7 +33,7 @@ ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 ENV MISE_DATA_DIR=/usr/local/share/mise
 ENV PATH=$MISE_DATA_DIR/shims:$PATH
-COPY mise.toml /etc/mise/config.toml
+COPY rootfs/etc/mise/config.toml /etc/mise/config.toml
 RUN mise install && \
     rm -rf /root/.cache
 

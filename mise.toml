@@ -1,0 +1,33 @@
+[env]
+DOCKER_REPO = "julianknocke/containers"
+
+[tasks."build:shell"]
+description = "Build the shell image"
+dir = "shell"
+run = "docker build -t $DOCKER_REPO:shell ."
+
+[tasks."build:web"]
+description = "Build the web image"
+dir = "web"
+run = "docker build -t $DOCKER_REPO:web ."
+
+[tasks.build]
+description = "Build all images"
+depends = ["build:*"]
+
+[tasks."publish:shell"]
+description = "Push the shell image"
+run = "docker push $DOCKER_REPO:shell"
+
+[tasks."publish:web"]
+description = "Push the web image"
+run = "docker push $DOCKER_REPO:web"
+
+[tasks.publish]
+description = "Push all images"
+depends = ["publish:*"]
+
+[tasks.pod]
+description = "Start the shell image as a pod in the current kube context"
+raw = true
+run = "shell/scripts/run_container.sh"

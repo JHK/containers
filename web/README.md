@@ -28,5 +28,5 @@ A Nginx server exposing different kind of endpoints that can be used for tests.
 
 ## build & publish
 
-    make build
-    make publish
+    mise run build:web
+    mise run publish:web
