@@ -1,6 +1,8 @@
 FROM ubuntu:resolute
 
-RUN apt update && apt upgrade -qqy && apt -qqy --fix-missing --no-install-recommends install \
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get -qqy --no-install-recommends install \
   # databases
   mysql-client postgresql-client redis-tools influxdb-client \
 \
@@ -17,16 +19,17 @@ RUN apt update && apt upgrade -qqy && apt -qqy --fix-missing --no-install-recomm
   ca-certificates curl httpie jq wget \
 \
   # https://fishshell.com/
-  fish fzf locales
+  fish fzf locales \
+  && rm -rf /var/lib/apt/lists/*
 
-RUN install -dm 755 /etc/apt/keyrings && \
-    curl -fsSL https://mise.jdx.dev/gpg-key.pub -o /etc/apt/keyrings/mise-archive-keyring.asc && \
+ADD https://mise.jdx.dev/gpg-key.pub /etc/apt/keyrings/mise-archive-keyring.asc
+RUN chmod 644 /etc/apt/keyrings/mise-archive-keyring.asc && \
     echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" > /etc/apt/sources.list.d/mise.list && \
-    apt update && apt -qqy --no-install-recommends install mise
+    apt-get update && apt-get -qqy --no-install-recommends install mise && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN locale-gen en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 && \
-    dpkg-reconfigure -f noninteractive tzdata
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 ENV MISE_DATA_DIR=/usr/local/share/mise
 ENV PATH=$MISE_DATA_DIR/shims:$PATH
@@ -34,7 +37,7 @@ COPY mise.toml /etc/mise/config.toml
 RUN mise install && \
     rm -rf /root/.cache
 
-ADD rootfs /
+COPY rootfs /
 WORKDIR /root
 
 ENTRYPOINT [ "/usr/bin/dumb-init", "--" ]

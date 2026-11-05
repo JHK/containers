@@ -1,4 +1,4 @@
 [tools]
-grpcurl = "latest"
-oha = "latest"
-yq = "latest"
+grpcurl = "1.9.4"
+oha = "1.16.0"
+yq = "4.54.1"
